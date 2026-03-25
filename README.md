@@ -21,56 +21,26 @@ Guardian AI is a fraud-detection prototype that uses live behavioral biometrics,
 - Motion
 - Lucide React
 
-## Getting Started
+## Live Demo
 
-### Prerequisites
-
-- Node.js 18+ recommended
-- npm
-
-### Install
-
-```bash
-npm install
-```
-
-### Run Locally
-
-```bash
-npm run dev
-```
-
-Vite will start a local development server, usually at:
+Hosted website:
 
 ```text
-http://localhost:5173
+https://dywaa3h3w49av.cloudfront.net
 ```
 
-### Production Build
+The hosted version gives access to the full prototype experience, including:
 
-```bash
-npm run build
-```
-
-## Environment Configuration
-
-The app can use a custom backend API base URL through:
-
-```text
-VITE_GUARDIAN_API_BASE
-```
-
-Example:
-
-```bash
-VITE_GUARDIAN_API_BASE=https://your-api-gateway-url/prod npm run dev
-```
-
-If this variable is not provided, the app falls back to the default API URL defined in [src/app/guardianApi.ts](/Users/jensenjianxi/Downloads/Guardian-AI-main/src/app/guardianApi.ts).
+- Executive overview
+- Guardian Ops command center
+- Manual review workspace
+- AI sensitivity controls
+- System architecture page
+- Client transfer flow with prototype face authentication
 
 ## How To Use
 
-After starting the app, use these routes from the sidebar:
+Open the hosted website and use these routes from the sidebar:
 
 - `/executive`
   Platform overview with live metrics, AI confidence, and risk summaries.
@@ -111,11 +81,23 @@ This frontend expects a backend with:
 - `DELETE /events`
   Clears stored events for demo reset.
 
+## Local Development
+
+If you want to run the project locally:
+
+```bash
+npm install
+npm run dev
+```
+
+Optional API override:
+
+```bash
+VITE_GUARDIAN_API_BASE=https://your-api-gateway-url/prod npm run dev
+```
+
 ## Notes
 
 - This is a prototype and includes simulated verification UX such as the face-authentication popup.
 - The current system is location-aware and can surface location-distance mismatch style signals, but full historical impossible-travel checking depends on backend support.
 - Before publishing publicly, remove any secrets, private URLs, or environment-specific credentials.
-
-# GuardianAI
-Guardian AI is a fraud-detection prototype that uses live behavioral biometrics, device context, geolocation, and transaction signals to assess transfer risk in real time and support step-up verification and analyst review.
