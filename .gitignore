@@ -8,3 +8,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+AI:Backend_AI-Inference.zip
+AI and Lambda Backend/
+AI:Backend_AI-Inference.zip
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/*.pkl
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/*.pth
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/*.pt
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/*.npy
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/Base.csv
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/.ipynb_checkpoints/
+AI and Lambda Backend/Trainings:Backend_AI-Inference/**/tmp/
