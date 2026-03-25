@@ -1,0 +1,41 @@
+1. The Banking Web Portal (Customer View)
+
+Goal: Satisfy FR1 & UR1 (Real-time ingestion with low friction).
+
+Figma Prompt:
+"Design a high-fidelity desktop web interface for a 'Guardian Bank' online banking portal. The screen shows a 'New International Transfer' form. On the left: input fields for Beneficiary Name, IBAN, and Swift Code. On the right: a 'Security Summary' card that says 'Guardian AI Protected' with a green pulsing status. The design should look like a modern FinTech web app (e.g., Mercury or Wise). Use a clean white background with a sidebar navigation in dark slate. Ensure there is a 'Real-time Security' footer that updates as the user types."
+
+2. The Agentic Intervention Modal (Web-Friction View)
+
+Goal: Satisfy FR4 & UR2 (Adaptive friction via a web browser).
+
+Figma Prompt:
+"Design a web-based 'Security Verification' modal overlay. This appears over the transfer page. The modal should have a clean, centered layout. Title: 'Verification Required.' It displays a 3D-style animation of a shield. The content explains: 'Our AI agent detected a change in interaction rhythm. Please scan the QR code below with your mobile app or use your hardware security key.' Include a 'Security Logic' tooltip that briefly explains this is to prevent social engineering. Use a 'Glassmorphism' effect for the modal background."
+
+3. The "Guardian Ops" Command Center (Admin View)
+
+Goal: Satisfy FR5, FR6, & VI.A (The main "Brain" of the project).
+
+Figma Prompt:
+"Design a full-screen web dashboard for 'Guardian AI Ops.' The layout consists of three main columns.
+
+Left Column: A live vertical feed of 'Streaming Events' from Amazon Kinesis, showing a 'Decision' tag for each row (Approve/Flag).
+
+Middle Column: A large 'Late Fusion' analysis panel featuring a Radar Chart (Risk Triad) and a natural language text block from Amazon Bedrock explaining the agent's logic.
+
+Right Column: A 'Mule Network Explorer' using a graph-node visualization (Amazon Neptune data).
+Color Palette: Dark mode, #0b0e14 background, with bright cyan and orange for data visualizations."
+
+4. The Self-Correcting Loop (Sensitivity Control)
+
+Goal: Satisfy Section VI.A (Dynamic sensitivity level adjustments).
+
+Figma Prompt:
+"Design a web-based settings panel for 'Guardian AI Sensitivity.' Include a large 'Global Sensitivity' slider that goes from 'Relaxed' to 'Aggressive.' Show two side-by-side line charts: one for 'False Positives' and one for 'Fraud Prevented.' As the slider moves, the charts should update to show the trade-off. Add an 'AI Auto-Calibration' toggle switch that is currently turned 'ON' with a status message: 'Agent is currently optimizing for low friction based on past 24-hour performance.'"
+
+5. Technical Pipeline Visualization (Pitch Deck Hero)
+
+Goal: Satisfy Fig 1 (System Architecture) for your web presentation.
+
+Figma Prompt:
+"Create a high-fidelity 'System Architecture' diagram for a web presentation. Start with a 'Web Browser' icon on the left. Draw a glowing data path to 'AWS Kinesis.' Show the data splitting into three 3D icons: a 'Brain' (SageMaker), a 'Network' (Neptune), and a 'Hand' (Transformer). All paths lead to a central 'Amazon Bedrock' icon. The final outputs should be three colored cards labeled 'Approve,' 'Step-Up,' and 'Freeze.' The style should be isometric, clean, and use AWS official branding colors."
