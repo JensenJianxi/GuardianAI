@@ -116,3 +116,6 @@ This frontend expects a backend with:
 - This is a prototype and includes simulated verification UX such as the face-authentication popup.
 - The current system is location-aware and can surface location-distance mismatch style signals, but full historical impossible-travel checking depends on backend support.
 - Before publishing publicly, remove any secrets, private URLs, or environment-specific credentials.
+
+# GuardianAI
+Guardian AI is a fraud-detection prototype that uses live behavioral biometrics, device context, geolocation, and transaction signals to assess transfer risk in real time and support step-up verification and analyst review.
