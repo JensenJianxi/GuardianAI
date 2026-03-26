@@ -7,6 +7,7 @@ Guardian AI is a fraud-detection prototype that uses live behavioral biometrics,
 - Hosted demo: `https://dywaa3h3w49av.cloudfront.net`
 - Artifact download (Google Drive): `https://drive.google.com/drive/folders/1K4x2bJvWR2FUzGF6GtAyZ_PG2sC8MwcI?usp=share_link`
 - Model/backend artifact download (S3): `https://guardian-ai-models.s3.ap-southeast-2.amazonaws.com/AI:Backend_AI-Inference.zip`
+- Google Slides: `https://docs.google.com/presentation/d/1KuKYjSTMHwblDkIUFIWHuOv9tiuJepY1/edit?slide=id.p1#slide=id.p1`
 
 ## Features
 
