@@ -1,6 +1,6 @@
 # Guardian AI
 
-Guardian AI is a fraud-detection prototype that uses live behavioral biometrics, device context, geolocation, and transaction signals to assess transfer risk in real time. It includes an executive dashboard, operations monitoring, manual review, AI sensitivity controls, and a client transfer flow with prototype step-up verification.
+In Swin Hackathon 2026, we created Guardian AI in a team of three as our solution for banking sector. This is a fraud-detection prototype that uses live behavioral biometrics, device context, geolocation, and transaction signals to assess transfer risk in real time. It includes an executive dashboard, operations monitoring, manual review, AI sensitivity controls, and a client transfer flow with prototype step-up verification.
 
 ## Important Links
 
