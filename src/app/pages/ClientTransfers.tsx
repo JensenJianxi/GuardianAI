@@ -587,7 +587,6 @@ export function ClientTransfers() {
       setCaptureMessage(hasLiveSignature ? "Submitting live biometric payload to Guardian AI..." : "Submitting reduced-signal verification payload to Guardian AI...");
       const res = await fetch(`${API_BASE}/ingest`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
