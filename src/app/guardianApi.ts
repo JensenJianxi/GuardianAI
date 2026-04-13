@@ -1,8 +1,34 @@
-const DEFAULT_API_BASE = "https://qnsoy3nza1.execute-api.ap-southeast-2.amazonaws.com/prod";
+const DEFAULT_API_BASE =
+  "https://r3izz4ipwosvopk43nsq2r4ovy0iyquk.lambda-url.ap-southeast-2.on.aws/";
 
-export const API_BASE = (import.meta.env.VITE_GUARDIAN_API_BASE || DEFAULT_API_BASE).replace(/\/$/, "");
+export const API_BASE = (
+  import.meta.env.VITE_GUARDIAN_API_BASE || DEFAULT_API_BASE
+).replace(/\/$/, "");
 
 export type ApiDecision = "APPROVE" | "RISKED" | "FREEZE";
+
+export type GuardianEvent = {
+  event_id: string;
+  timestamp?: string;
+  decision?: ApiDecision | string;
+  review_decision?: ApiDecision | string;
+  backend_decision?: ApiDecision | string;
+  review_source?: string;
+  review_updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type ModelFile = {
+  key: string;
+  size: number;
+  last_modified: string;
+};
+
+export type ModelsResponse = {
+  bucket: string;
+  prefix: string;
+  files: ModelFile[];
+};
 
 type EventReviewUpdateRequest = {
   eventId: string;
@@ -49,8 +75,10 @@ export async function parseApiPayload<T>(response: Response): Promise<T> {
   }
 
   let payload: unknown = rawPayload;
+
   if (rawPayload && typeof rawPayload === "object" && "body" in rawPayload) {
     const nestedBody = (rawPayload as { body?: unknown }).body;
+
     if (typeof nestedBody === "string") {
       try {
         payload = safeParseJson(nestedBody);
@@ -80,6 +108,45 @@ export function formatUsd(value: number | undefined): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(Number(value ?? 0));
+}
+
+export async function getHealth(): Promise<Record<string, unknown>> {
+  const response = await fetch(`${API_BASE}/health`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return parseApiPayload<Record<string, unknown>>(response);
+}
+
+export async function getEvents(): Promise<GuardianEvent[]> {
+  const response = await fetch(`${API_BASE}/events`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return parseApiPayload<GuardianEvent[]>(response);
+}
+
+export async function getModels(): Promise<ModelsResponse> {
+  const response = await fetch(`${API_BASE}/models`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return parseApiPayload<ModelsResponse>(response);
+}
+
+export async function clearEvents(): Promise<{
+  message: string;
+  cleared: number;
+}> {
+  const response = await fetch(`${API_BASE}/events`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return parseApiPayload<{ message: string; cleared: number }>(response);
 }
 
 export async function updateEventReviewDecision({
