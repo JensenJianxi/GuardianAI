@@ -19,3 +19,4 @@ AI and Lambda Backend/Trainings:Backend_AI-Inference/**/Base.csv
 AI and Lambda Backend/Trainings:Backend_AI-Inference/**/.ipynb_checkpoints/
 AI and Lambda Backend/Trainings:Backend_AI-Inference/**/tmp/
 ./claude*
+./vscode*
