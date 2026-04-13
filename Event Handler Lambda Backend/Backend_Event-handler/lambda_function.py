@@ -1,9 +1,20 @@
 import json
 import boto3
+import os
 from decimal import Decimal
 
 dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table("guardian_ai_events")
+s3 = boto3.client("s3")
+
+TABLE_NAME = os.environ.get("TABLE_NAME", "guardian_ai_events")
+BUCKET_NAME = os.environ.get("BUCKET_NAME", "aiguardianmodels")
+MODEL_PREFIX = os.environ.get("MODEL_PREFIX", "guardian_deploy/")
+FRONTEND_ORIGIN = os.environ.get(
+    "FRONTEND_ORIGIN",
+    "https://main.d1eevjsp6yi7f3.amplifyapp.com"
+)
+
+table = dynamodb.Table(TABLE_NAME)
 
 
 def decimal_to_native(obj):
@@ -16,13 +27,42 @@ def response(status_code, payload):
     return {
         "statusCode": status_code,
         "headers": {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": FRONTEND_ORIGIN,
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Methods": "GET,DELETE,PATCH,OPTIONS",
             "Content-Type": "application/json",
         },
         "body": json.dumps(payload, default=decimal_to_native),
     }
+
+
+def list_model_files():
+    objects = []
+    continuation_token = None
+
+    while True:
+        kwargs = {
+            "Bucket": BUCKET_NAME,
+            "Prefix": MODEL_PREFIX
+        }
+        if continuation_token:
+            kwargs["ContinuationToken"] = continuation_token
+
+        s3_response = s3.list_objects_v2(**kwargs)
+
+        for obj in s3_response.get("Contents", []):
+            objects.append({
+                "key": obj["Key"],
+                "size": obj["Size"],
+                "last_modified": obj["LastModified"].isoformat()
+            })
+
+        if s3_response.get("IsTruncated"):
+            continuation_token = s3_response.get("NextContinuationToken")
+        else:
+            break
+
+    return objects
 
 
 def lambda_handler(event, context):
@@ -32,10 +72,39 @@ def lambda_handler(event, context):
         or "GET"
     ).upper()
 
+    path = (
+        event.get("rawPath")
+        or event.get("path")
+        or "/"
+    )
+
     if method == "OPTIONS":
         return response(200, {"ok": True})
 
-    if method == "GET":
+    # Health check
+    if method == "GET" and path in ["/", "/health"]:
+        return response(200, {
+            "message": "GuardianAI backend is working",
+            "table": TABLE_NAME,
+            "bucket": BUCKET_NAME,
+            "model_prefix": MODEL_PREFIX,
+            "frontend_origin": FRONTEND_ORIGIN
+        })
+
+    # List model files from S3
+    if method == "GET" and path == "/models":
+        try:
+            files = list_model_files()
+            return response(200, {
+                "bucket": BUCKET_NAME,
+                "prefix": MODEL_PREFIX,
+                "files": files
+            })
+        except Exception as e:
+            return response(500, {"error": str(e)})
+
+    # Get all events from DynamoDB
+    if method == "GET" and path == "/events":
         try:
             scan_response = table.scan()
             items = scan_response.get("Items", [])
@@ -52,7 +121,8 @@ def lambda_handler(event, context):
         except Exception as e:
             return response(500, {"error": str(e)})
 
-    if method == "DELETE":
+    # Delete all events from DynamoDB
+    if method == "DELETE" and path == "/events":
         try:
             key_names = [entry["AttributeName"] for entry in table.key_schema]
             if not key_names:
@@ -87,7 +157,8 @@ def lambda_handler(event, context):
         except Exception as e:
             return response(500, {"error": str(e)})
 
-    if method == "PATCH":
+    # Update event decision in DynamoDB
+    if method == "PATCH" and path == "/events":
         try:
             raw_body = event.get("body") or "{}"
             body = json.loads(raw_body) if isinstance(raw_body, str) else raw_body
@@ -146,4 +217,4 @@ def lambda_handler(event, context):
         except Exception as e:
             return response(500, {"error": str(e)})
 
-    return response(405, {"error": f"Unsupported method: {method}"})
+    return response(405, {"error": f"Unsupported route or method: {method} {path}"})
