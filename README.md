@@ -1,9 +1,9 @@
 # Guardian AI
 
 Guardian AI is a fraud-detection prototype for high-risk transfer monitoring. The app combines behavioral biometrics, device context, motion capture, geolocation, and transaction heuristics to score transfers in real time and route them into analyst workflows.
+Checkout the Project Walkthrough Demo Video: https://drive.google.com/file/d/1zsANNOhbbtlngqYldFnlxB2hvVxgU4A0/view?usp=share_link
 
 The project includes:
-
 - A client transfer experience for submitting live transfer events
 - An executive overview dashboard
 - An operations command center
