@@ -16,7 +16,7 @@ The project includes:
 
 These URLs are the ones currently wired into the repo configuration as of April 13, 2026.
 
-- Hosted frontend: `https://main.d1eevjsp6yi7f3.amplifyapp.com`
+- Hosted frontend: https://main.d1eevjsp6yi7f3.amplifyapp.com
 - Default backend API base: `https://r3izz4ipwosvopk43nsq2r4ovy0iyquk.lambda-url.ap-southeast-2.on.aws`
 
 Useful hosted routes:
